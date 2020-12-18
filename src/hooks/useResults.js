@@ -24,7 +24,7 @@ export default () => {
 
     // Set up initial search request
     useEffect(() => {
-        searchApi('malay');
+        searchApi('persian');
     }, [])
 
     return [searchApi, results, errorMessage];
