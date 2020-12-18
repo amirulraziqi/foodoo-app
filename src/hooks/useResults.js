@@ -22,6 +22,7 @@ export default () => {
         }
     };
 
+    // Set up initial search request
     useEffect(() => {
         searchApi('malay');
     }, [])
