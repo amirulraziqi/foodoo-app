@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, userEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import SearchBar from '../components/SearchBar';
 import yelp from '../api/yelp';
+import { useEffect } from 'react';
 
 const SearchScreen = () => {
     const [term, setTerm] = useState('');
@@ -9,12 +10,12 @@ const SearchScreen = () => {
     const [errorMessage, setErrorMessage] = useState('');
 
     // Making the request here, appending to baseURL '/search?limit=50?term?location='singapore'
-    const searchApi = async () => {
+    const searchApi = async (searchTerm) => {
         try{
             const response = await yelp.get('/search', {
                 params: {
                     limit: 50,
-                    term: term,
+                    term: searchTerm,
                     location: 'singapore'
                 }
             });
@@ -25,12 +26,16 @@ const SearchScreen = () => {
         }
     };
 
+    useEffect(() => {
+        searchApi('persian');
+    }, [])
+
     return (
         <View>
             <SearchBar 
                 term={term} 
                 onTermChange={setTerm}
-                onTermSubmit={searchApi}
+                onTermSubmit={() => searchApi(term)}
             />
             <Text>Search Screen</Text>
             <Text>We have found {results.length} results</Text>
