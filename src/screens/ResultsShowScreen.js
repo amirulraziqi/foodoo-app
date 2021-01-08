@@ -23,12 +23,17 @@ const ResultsShowScreen = ({ navigation }) => {
 
     return (
         <View>
-            <Text>{result.name}</Text>
+            <Image source={{ uri: result.image_url }} style={styles.imageOneStyle} />
+            <Text style={styles.nameStyle}>{result.name}</Text>
+            <Text style={styles.categoryStyle}>{result.categories[0].title}</Text>
+            <Text styles={styles.subheaderStyle}>Photos</Text>
             <FlatList 
+                horizontal
+                showsHorizontalScrollIndicator={false}
                 data={result.photos}
                 keyExtractor={(photo) => photo}
                 renderItem={({ item }) => {
-                    return <Image source={{ uri: item }} style={styles.imageStyle}/>
+                    return <Image source={{ uri: item }} style={styles.imageTwoStyle}/>
                 }}
             />
         </View>
@@ -36,7 +41,24 @@ const ResultsShowScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-    imageStyle: {
+    nameStyle: {
+        fontSize: 24,
+        fontWeight: 'bold',
+    },
+    categoryStyle: {
+        fontSize: 14,
+    },
+    subheaderStyle: {
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+    imageOneStyle: {
+        width: 300,
+        height: 200,
+        marginBottom: 10,
+        position: 'absolute',
+    },
+    imageTwoStyle: {
         width: 300,
         height: 200,
         borderRadius: 4,
